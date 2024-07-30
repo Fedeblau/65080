@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getProductos } from '../asyncMock'
-import Item from './Item'
+import Item from './Item/Item'
 
 const ItemListContainer = ( {saludo} ) => {
 
@@ -8,12 +8,17 @@ const ItemListContainer = ( {saludo} ) => {
   const [ cargando , setCargando ] = useState(true)
 
   useEffect(()=>{
-    getProductos()
-      .then((res) => setProductos(res))
-      .catch()
-      .finally(()=>setCargando(false))
-  }, [])
+    // getProductos()
+    //   .then((res) => setProductos(res))
+    //   .catch()
+    //   .finally(()=>setCargando(false))
 
+    fetch("https://fakestoreapi.com/products/category/women's clothing")
+      .then(data => data.json())
+      .then(res => setProductos(res))
+      .finally(setCargando(false))
+  }, [])
+  
 
   console.log(productos)
   
@@ -27,7 +32,7 @@ const ItemListContainer = ( {saludo} ) => {
     <div>
         {productos.map((el)=> {
           return (
-            <Item key={el.id} producto={el}/>
+            <Item key={el.id} producto={el}/>  
           )
         })}
     </div>
