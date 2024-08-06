@@ -1,10 +1,11 @@
 import React, { Children } from 'react'
 import ItemCount from '../ItemCount/ItemCount'
 import './Item.css'
+import { Link } from 'react-router-dom'
 
 const Item = ( props ) => {
 
-  console.log(props)
+
 
   const {producto} = props
 
@@ -18,7 +19,7 @@ const Item = ( props ) => {
       <p>{description}</p>
       <p>price</p>
       <p>{props.children}</p>
-      <button>Ver detalles</button>
+      <Link to={`/detalle/${id}`} className="btn">Ver detalles</Link>
     </div>
     
   )

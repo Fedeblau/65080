@@ -34,7 +34,7 @@ const ItemCount = ({id}) => {
     }
 
     const comprar = () =>{
-      console.log(`compraste ${count} unidades del producto ${id}`)
+       console.log(`compraste ${count} unidades del producto ${id}`)
     }
 
 

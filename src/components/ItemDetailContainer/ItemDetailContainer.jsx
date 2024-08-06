@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import ItemDetail from "../ItemDetail"
+import { useNavigate, useParams } from "react-router-dom"
+import { getProducto } from "../../asyncMock"
 
 
 
@@ -8,29 +10,30 @@ export const ItemDetailContainer = () => {
     const [producto, setProducto] = useState({})
     const [error, setError] = useState(null)
     const [cargando, setCargando] = useState(true)
-    const [prodId, setProdId] = useState(3)
-
+    const { id } = useParams()
+    const navigate = useNavigate();
 
     const mostrarSiguiente = () =>{
-        setProdId(prodId +1)
+        let ruta = id*1 + 1
+        navigate(`/detalle/${ruta}`)
     }
     const mostrarAnterior = () =>{
-        if(prodId > 0){
-            setProdId(prodId - 1)
+        if(id > 0){
+            let ruta = id*1 - 1
+            navigate(`/detalle/${ruta}`)
         }
     }
 
 
-
     useEffect(() => {
-
         setCargando(true)
         const fetchProducto = async () => {
             try{
 
-                const res = await fetch(`https://fakestoreapi.com/products/${prodId}`)
-                const data = await res.json()
-                setProducto(data)
+                // const res = await fetch(`https://fakestoreapi.com/products/${id}`)
+                // const data = await res.json()
+                const res = await getProducto(id)
+                setProducto(res)
 
             } catch (error){
                 setError(error)
@@ -47,7 +50,7 @@ export const ItemDetailContainer = () => {
         // .then(res=>res.json())
         // .then(json=>console.log(json))
 
-    }, [prodId])
+    }, [ id])
 
     console.log(producto)
     
