@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <nav>
         <Link to="/">
-        <h1>Mi tiendita!</h1>
+        <h1>Mi tiendita! especial</h1>
         </Link>
         <ul>
           {
