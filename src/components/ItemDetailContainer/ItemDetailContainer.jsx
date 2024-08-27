@@ -2,9 +2,8 @@ import { useEffect, useState } from "react"
 import ItemDetail from "../ItemDetail"
 import { useNavigate, useParams } from "react-router-dom"
 import { getProducto } from "../../asyncMock"
-
-
-
+import { db } from "../../services/firebaseConfig" 
+import { getDoc, doc } from "firebase/firestore"
 
 export const ItemDetailContainer = () => {
     const [producto, setProducto] = useState({})
@@ -13,16 +12,6 @@ export const ItemDetailContainer = () => {
     const { id } = useParams()
     const navigate = useNavigate();
 
-    const mostrarSiguiente = () =>{
-        let ruta = id*1 + 1
-        navigate(`/detalle/${ruta}`)
-    }
-    const mostrarAnterior = () =>{
-        if(id > 0){
-            let ruta = id*1 - 1
-            navigate(`/detalle/${ruta}`)
-        }
-    }
 
 
     useEffect(() => {
@@ -32,8 +21,13 @@ export const ItemDetailContainer = () => {
 
                 // const res = await fetch(`https://fakestoreapi.com/products/${id}`)
                 // const data = await res.json()
-                const res = await getProducto(id)
-                setProducto(res)
+                // const res = await getProducto(id) 
+                const productoRef = doc(db, "productos", id)
+
+                const res = await getDoc(productoRef)
+                const data = res.data()
+                const productoFormateado = {id: res.id , ...data} 
+                setProducto(productoFormateado)
 
             } catch (error){
                 setError(error)
@@ -61,7 +55,7 @@ export const ItemDetailContainer = () => {
         cargando ? 
         <h3>cargando....</h3>
         :
-        <ItemDetail producto={producto} mostrarSiguiente={mostrarSiguiente} mostrarAnterior={mostrarAnterior}/>
+        <ItemDetail producto={producto} />
     }
     </>
   )

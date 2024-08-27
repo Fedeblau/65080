@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { CartContext } from '../context/CartContext'
 
 const CartWidget = () => {
+  const { mostrarCantidad } = useContext(CartContext)
+ 
   return (
     <div>🛒
-        <span>0</span>
+        <span>{mostrarCantidad()}</span>
     </div>
   )
 }

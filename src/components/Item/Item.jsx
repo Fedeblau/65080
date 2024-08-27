@@ -9,6 +9,9 @@ const Item = ( props ) => {
 
   const {producto} = props
 
+
+  console.log("producto",producto)
+
   const {id, image, title, description, category, rating, price} = producto
 
 

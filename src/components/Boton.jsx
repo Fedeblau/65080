@@ -6,9 +6,6 @@ import './Boton.css'
 
 const Boton = ({texto, fn}) => {
 
-    
-
-
     return (
         <>
             <button className="green" onClick={ () => fn() } > {texto} </button>

@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom'
 
 
 const Navbar = () => {
-  const [categorias, setCategorias] = useState([])
+  const [categorias, setCategorias] = useState([  "electronics",   "men's clothing",   "women's clothing", "jewelery"])
+
+
 
 
   useEffect(() => {
@@ -24,7 +26,9 @@ const Navbar = () => {
             categorias.length > 0 && categorias.map(e => <Link key={e} to={`/categoria/${e}`}>{e + " "}</Link>)
           }         
         </ul>
-        <CartWidget />
+        <Link to="/cart">
+          <CartWidget />
+        </Link>
     </nav>
     
     
